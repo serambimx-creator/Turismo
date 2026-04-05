@@ -37,10 +37,16 @@ export async function GET() {
           nombre_completo: admin.nombre_completo,
           passcode: admin.passcode,
           es_admin: true,
-          acceso_validado: true
+          acceso_validado: true,
+          ciudad_salida: 'CDMX', // Valor válido para el CHECK constraint
+          hospedaje: 'Cabaña'    // Valor válido para el CHECK constraint
         })
         .eq('whatsapp', admin.whatsapp);
-      results.push({ name: admin.nombre_completo, status: error ? 'error' : 'actualizado' });
+      results.push({ 
+        name: admin.nombre_completo, 
+        status: error ? 'error' : 'actualizado',
+        error: error ? error.message : null 
+      });
     } else {
       const { error } = await supabase
         .from('asistentes')
@@ -48,13 +54,22 @@ export async function GET() {
           ...admin,
           es_admin: true,
           acceso_validado: true,
-          ciudad_salida: 'Admin',
+          ciudad_salida: 'CDMX', // Valor válido
+          hospedaje: 'Cabaña',    // Valor válido
           email: 'admin@serambi.mx',
           monto_pagado: 0
         }]);
-      results.push({ name: admin.nombre_completo, status: error ? 'error' : 'creado' });
+      results.push({ 
+        name: admin.nombre_completo, 
+        status: error ? 'error' : 'creado',
+        error: error ? error.message : null
+      });
     }
   }
 
-  return NextResponse.json({ message: 'Proceso de activación completado', details: results });
+  const hasErrors = results.some(r => r.status === 'error');
+  return NextResponse.json({ 
+    message: hasErrors ? 'Completado con algunos errores' : 'Proceso de activación completado con éxito', 
+    details: results 
+  });
 }
