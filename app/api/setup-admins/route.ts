@@ -8,7 +8,7 @@ const admins = [
   { nombre_completo: 'Karla',       whatsapp: '7717741409', passcode: '1409' },
   { nombre_completo: 'Octavio',     whatsapp: '5531377309', passcode: '7309' },
   { nombre_completo: 'Victoria',    whatsapp: '5546566223', passcode: '6223' },
-  { nombre_completo: 'Wendy',       whatsapp: '7717227556', passcode: '7556' },
+  { nombre_completo: 'Wendy',       whatsapp: '7717727556', passcode: '7556' },
   { nombre_completo: 'Luis',        whatsapp: '7713300261', passcode: '0261' },
 ];
 
