@@ -125,54 +125,54 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* 2. GALERÍA DE CONFIANZA */}
-        <section className="py-20 bg-white/5 backdrop-blur-3xl border-y border-white/10 shadow-inner">
+        {/* 2. GALERÍA VISUAL */}
+        <section className="py-16 bg-white/5 backdrop-blur-3xl border-y border-white/10 shadow-inner">
           <div className="max-w-7xl mx-auto px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-              <div className="flex flex-col items-center text-center p-6 rounded-3xl bg-black/30 border border-white/10 backdrop-blur-xl group hover:bg-emerald-500/5 transition-all">
-                <div className="w-14 h-14 bg-emerald-500/20 rounded-2xl flex items-center justify-center mb-6 border border-emerald-500/30 group-hover:scale-110 transition-transform">
-                  <ShieldCheck className="text-emerald-500 w-7 h-7" />
+              <div className="flex flex-col items-center text-center p-6 rounded-3xl bg-black/30 border border-white/10 group hover:bg-emerald-500/5 transition-all">
+                <div className="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center mb-4 border border-emerald-500/20">
+                  <ShieldCheck className="text-emerald-500 w-6 h-6" />
                 </div>
-                <h3 className="text-xs font-black text-white mb-2 uppercase tracking-widest italic">Seguridad</h3>
-                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-tight">Equipos Certificados</p>
+                <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-1">Seguridad</h3>
+                <p className="text-sm font-bold text-white uppercase italic">Protocolos</p>
               </div>
-              <div className="flex flex-col items-center text-center p-6 rounded-3xl bg-black/30 border border-white/10 backdrop-blur-xl group hover:bg-cyan-500/5 transition-all">
-                <div className="w-14 h-14 bg-cyan-500/20 rounded-2xl flex items-center justify-center mb-6 border border-cyan-500/30 group-hover:scale-110 transition-transform">
-                  <Camera className="text-cyan-500 w-7 h-7" />
+              <div className="flex flex-col items-center text-center p-6 rounded-3xl bg-black/30 border border-white/10 group hover:bg-cyan-500/5 transition-all">
+                <div className="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center mb-4 border border-cyan-500/20">
+                  <Camera className="text-cyan-500 w-6 h-6" />
                 </div>
-                <h3 className="text-xs font-black text-white mb-2 uppercase tracking-widest italic">Fotos Reales</h3>
-                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-tight">Cero Placeholders</p>
+                <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-1">Galería</h3>
+                <p className="text-sm font-bold text-white uppercase italic">Realista</p>
               </div>
-              <div className="flex flex-col items-center text-center p-6 rounded-3xl bg-black/30 border border-white/10 backdrop-blur-xl group hover:bg-amber-500/5 transition-all">
-                <div className="w-14 h-14 bg-amber-500/20 rounded-2xl flex items-center justify-center mb-6 border border-amber-500/30 group-hover:scale-110 transition-transform">
-                  <Users className="text-amber-500 w-7 h-7" />
+              <div className="flex flex-col items-center text-center p-6 rounded-3xl bg-black/30 border border-white/10 group hover:bg-amber-500/5 transition-all">
+                <div className="w-12 h-12 bg-amber-500/10 rounded-xl flex items-center justify-center mb-4 border border-amber-500/20">
+                  <Users className="text-amber-500 w-6 h-6" />
                 </div>
-                <h3 className="text-xs font-black text-white mb-2 uppercase tracking-widest italic">Guías</h3>
-                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-tight">Expertos Locales</p>
+                <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-1">Guías</h3>
+                <p className="text-sm font-bold text-white uppercase italic">Expertos</p>
               </div>
-              <div className="flex flex-col items-center text-center p-6 rounded-3xl bg-black/30 border border-white/10 backdrop-blur-xl group hover:bg-emerald-500/5 transition-all">
-                <div className="w-14 h-14 bg-emerald-500/20 rounded-2xl flex items-center justify-center mb-6 border border-emerald-500/30 group-hover:scale-110 transition-transform">
-                  <Award className="text-emerald-500 w-7 h-7" />
+              <div className="flex flex-col items-center text-center p-6 rounded-3xl bg-black/30 border border-white/10 group hover:bg-emerald-500/5 transition-all">
+                <div className="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center mb-4 border border-emerald-500/20">
+                  <Award className="text-emerald-500 w-6 h-6" />
                 </div>
-                <h3 className="text-xs font-black text-white mb-2 uppercase tracking-widest italic">Premium</h3>
-                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-tight">Servicio VIP</p>
+                <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-1">Servicio</h3>
+                <p className="text-sm font-bold text-white uppercase italic">Premium</p>
               </div>
             </div>
 
-            {/* Carousel Visual */}
-            <div className="mt-20 flex overflow-x-auto gap-6 snap-x pb-8 hide-scrollbar">
+            {/* Carousel Visual Limpio */}
+            <div className="mt-16 flex overflow-x-auto gap-4 snap-x pb-8 hide-scrollbar">
               {[
-                {img: '/Puente.jpeg', title: 'Seguridad Certificada', tag: 'Aventura'},
-                {img: '/bufette tlalli2.jpg', title: 'Comida de la Sierra', tag: 'Calidad'},
-                {img: '/bosque-luciernagas-.jpg', title: 'Bosques Vírgenes', tag: 'Destino'},
-                {img: '/Restaurante.jpeg', title: 'Hospedaje Cómodo', tag: 'Hospedaje'}
+                {img: '/Puente.jpeg', title: 'SEGURIDAD', tag: 'AVENTURA'},
+                {img: '/bufette tlalli2.jpg', title: 'GASTRONOMÍA', tag: 'CALIDAD'},
+                {img: '/serambi_cascadas_principal.jpg', title: 'DESTINO', tag: 'NATURALEZA'},
+                {img: '/Restaurante.jpeg', title: 'HOSPEDAJE', tag: 'DESCANSO'}
               ].map((item, i) => (
-                <div key={i} className="min-w-[85vw] md:min-w-[40vw] snap-center aspect-video relative rounded-[40px] overflow-hidden border border-white/20 shadow-2xl group transition-all">
-                  <Image src={item.img} alt={item.title} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
-                  <div className="absolute bottom-10 left-10">
-                    <span className="bg-emerald-500 text-black text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter mb-4 inline-block italic shadow-xl">{item.tag}</span>
-                    <h4 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter drop-shadow-2xl leading-none">{item.title}</h4>
+                <div key={i} className="min-w-[80vw] md:min-w-[35vw] snap-center aspect-video relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl group transition-all">
+                  <Image src={item.img} alt={item.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
+                  <div className="absolute bottom-6 left-6">
+                    <span className="bg-emerald-500 text-black text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter mb-2 inline-block italic shadow-lg">{item.tag}</span>
+                    <h4 className="text-2xl md:text-4xl font-black text-white uppercase italic tracking-tighter drop-shadow-2xl leading-none">{item.title}</h4>
                   </div>
                 </div>
               ))}
@@ -185,33 +185,31 @@ export default function LandingPage() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-5xl md:text-8xl font-black text-white italic tracking-tighter leading-none">MOMENTOS <span className="text-emerald-500">MÁGICOS</span></h2>
-              <p className="text-slate-400 mt-6 text-xl font-bold uppercase tracking-widest opacity-50">Diseñados para transformar tu visión</p>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {[
-                { title: 'Luciérnagas', subtitle: 'BIOLUMINISCENCIA', img: '/bosque-luciernagas-.jpg', color: 'amber', icon: '✨' },
-                { title: 'Dos Mundos', subtitle: 'AVENTURA HIDRO', img: '/Galeria6.jpeg', color: 'cyan', icon: '💧' },
-                { title: 'Puentes y Tiros', subtitle: 'PURA ADRENALINA', img: '/Puente.jpeg', color: 'emerald', icon: '🌉' }
+                { title: 'Luciérnagas', subtitle: 'LUCES NATURALES', img: '/bosque-luciernagas-.jpg', color: 'amber', icon: '✨' },
+                { title: 'Cascadas', subtitle: 'DOS MUNDOS', img: '/Galeria6.jpeg', color: 'cyan', icon: '💧' },
+                { title: 'Puentes', subtitle: 'ADRENALINA', img: '/Puente.jpeg', color: 'emerald', icon: '🌉' }
               ].map((ex, i) => (
-                <div key={i} className="bg-black/40 backdrop-blur-3xl rounded-[48px] border border-white/10 overflow-hidden shadow-2xl group">
-                   <div className="relative h-80 w-full overflow-hidden">
-                      <Image src={ex.img} alt={ex.title} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
-                      <div className="absolute top-8 left-8 bg-black/60 backdrop-blur-md w-12 h-12 flex items-center justify-center rounded-2xl border border-white/20">
-                        <span className="text-2xl">{ex.icon}</span>
+                <div key={i} className="bg-black/30 backdrop-blur-3xl rounded-[40px] border border-white/10 overflow-hidden shadow-2xl group flex flex-col">
+                   <div className="relative h-64 w-full overflow-hidden shrink-0">
+                      <Image src={ex.img} alt={ex.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                      <div className="absolute top-6 left-6 bg-black/60 backdrop-blur-md w-10 h-10 flex items-center justify-center rounded-xl border border-white/20">
+                        <span className="text-xl">{ex.icon}</span>
                       </div>
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                    </div>
-                   <div className="p-10">
-                     <p className={`text-${ex.color}-400 text-xs font-black tracking-[0.3em] uppercase mb-4`}>{ex.subtitle}</p>
-                     <h3 className="text-3xl font-black text-white mb-6 uppercase italic tracking-tighter">{ex.title}</h3>
-                     <p className="text-slate-400 text-base leading-relaxed mb-8 font-bold opacity-80">
-                        {i === 0 ? 'Miles de luciérnagas iluminan el bosque en un ballet ancestral único bajo la luna de mayo.' : 
-                         i === 1 ? 'Descenso a las majestuosas cascadas rodeadas de la selva nebulosa más pura de Hidalgo.' : 
-                         'Siente el vértigo cruzando el cañón por puentes colgantes sobre el dosel del bosque.'}
+                   <div className="p-8 flex-1">
+                     <p className={`text-${ex.color}-400 text-[10px] font-black tracking-[0.4em] uppercase mb-3`}>{ex.subtitle}</p>
+                     <h3 className="text-2xl font-black text-white mb-4 uppercase italic tracking-tighter">{ex.title}</h3>
+                     <p className="text-slate-400 text-sm leading-relaxed mb-6 font-bold opacity-70 italic">
+                        {i === 0 ? 'Miles de luciérnagas iluminan el bosque en un espectáculo único bajo la luna de mayo.' : 
+                         i === 1 ? 'Dos cascadas majestuosas que nacen de manantiales entre la selva nebulosa.' : 
+                         'Siente el aire cruzando puentes colgantes sobre el cañón de Acaxochitlán.'}
                      </p>
-                     <div className="flex gap-3">
-                        <span className="bg-white/5 border border-white/10 text-white px-4 py-1.5 rounded-2xl text-[10px] font-black uppercase tracking-widest">Naturaleza</span>
-                        <span className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-4 py-1.5 rounded-2xl text-[10px] font-black uppercase tracking-widest">Aventura</span>
+                     <div className="flex gap-2">
+                        <span className="bg-white/5 border border-white/10 text-white px-3 py-1 rounded-xl text-[9px] font-black uppercase tracking-widest italic">Naturaleza</span>
+                        <span className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-3 py-1 rounded-xl text-[9px] font-black uppercase tracking-widest italic">Aventura</span>
                      </div>
                    </div>
                 </div>
@@ -220,38 +218,48 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* 4. ITINERARIO */}
-        <section id="itinerario" className="py-20 lg:py-32 bg-emerald-500/5 backdrop-blur-xl border-y border-white/5 shadow-2xl">
-          <div className="max-w-4xl mx-auto px-6">
-            <div className="text-center mb-20">
-              <h2 className="text-5xl md:text-8xl font-black text-white italic tracking-tighter leading-none mb-6">EL PLAN <span className="text-emerald-500 underline decoration-8 underline-offset-8">PERFECTO</span></h2>
-              <p className="text-emerald-400 font-black text-xs tracking-[0.4em] uppercase font-mono">Bitácora de Expedición / 48 Horas</p>
+        {/* 4. ITINERARIO (REDISEÑO NITIDO) */}
+        <section id="itinerario" className="py-20 bg-emerald-500/[0.03] backdrop-blur-3xl border-y border-white/5 shadow-inner">
+          <div className="max-w-2xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-5xl md:text-7xl font-black text-white italic tracking-tighter leading-none mb-4">TRAVESÍA <span className="text-emerald-500 underline decoration-4 underline-offset-8">48 HRS</span></h2>
+              <p className="text-emerald-400 font-black text-[10px] tracking-[0.5em] uppercase font-mono italic">Bitácora de Expedición</p>
             </div>
-            <div className="space-y-10">
+            
+            <div className="bg-white/5 backdrop-blur-3xl rounded-[48px] border border-white/10 p-6 md:p-10 shadow-2xl space-y-6">
               {[
-                { h: '09:00', t: 'Punto de Encuentro', icon: '🚌', desc: 'Salida puntual desde CDMX y Pachuca con check-in de seguridad.' },
-                { h: '12:30', t: 'Bienvenida Gastronómica', icon: '🍱', desc: 'Comida caliente incluida para recargar energías antes de la travesía.', inc: true },
-                { h: '14:00', t: 'Expedición Cascadas', icon: '💧', desc: 'Actividades de montaña, tirolesas y nado en pozas naturales.' },
-                { h: '19:30', t: 'Noche de Luciérnagas', icon: '✨', desc: 'Plática educativa y avistamiento del espectáculo bioluminiscente.' },
-                { h: '08:00', t: 'Desayuno Montañero', icon: '☕', desc: 'Amanecer con café de olla y desayuno completo incluido.', inc: true },
+                { h: '09:00', t: 'Punto de Encuentro', icon: '🚌', d: 'DÍA 1', desc: 'Salida puntual desde CDMX/Pachuca.' },
+                { h: '12:30', t: 'Bienvenida Tlalli', icon: '🍱', d: 'DÍA 1', inc: true, desc: 'Comida caliente incluida.' },
+                { h: '14:00', t: 'Cascadas Dos Mundos', icon: '💧', d: 'DÍA 1', desc: 'Exploración, tirolesas y nado.' },
+                { h: '19:30', t: 'Santuario Luciérnagas', icon: '✨', d: 'DÍA 1', desc: 'Avistamiento nocturno.' },
+                { h: '08:00', t: 'Desayuno Montañero', icon: '☕', d: 'DÍA 2', inc: true, desc: 'Café de olla y comida completa.' },
+                { h: '14:00', t: 'Buffet Tlalli', icon: '🥘', d: 'DÍA 2', desc: 'Guisos tradicionales (Regreso).' },
               ].map((step, i) => (
-                <div key={i} className="flex gap-8 items-start group">
-                  <div className="shrink-0 flex flex-col items-center pt-2">
-                    <span className="font-mono text-sm font-black text-emerald-400 tracking-tighter opacity-70 mb-2">{step.h}</span>
-                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]"></div>
-                    <div className="w-px h-24 bg-gradient-to-b from-emerald-500/40 to-transparent mt-2"></div>
+                <div key={i} className="flex gap-6 items-center group">
+                  <div className="shrink-0 flex flex-col items-center">
+                    <span className="font-mono text-[10px] font-black text-emerald-400 tracking-tighter opacity-70">{step.h}</span>
+                    <div className={`w-2.5 h-2.5 rounded-full border-2 ${step.d === 'DÍA 1' ? 'border-emerald-500' : 'border-cyan-500'} mt-1`}></div>
                   </div>
-                  <div className="bg-black/40 backdrop-blur-3xl border border-white/10 px-10 py-8 rounded-[40px] flex-1 group-hover:bg-white/5 group-hover:-translate-y-2 transition-all shadow-xl">
-                    <div className="flex items-center gap-4 mb-4">
-                       <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-2xl border border-white/10">{step.icon}</div>
-                       <h4 className="font-black text-white text-xl uppercase tracking-tighter italic">{step.t}</h4>
-                       {step.inc && <span className="text-[10px] font-black bg-amber-500 text-black px-3 py-1 rounded-full shadow-lg shadow-amber-500/20">INCLUIDO ✓</span>}
+                  <div className="bg-white/5 border border-white/5 px-6 py-4 rounded-3xl flex-1 flex items-center justify-between group-hover:bg-white/10 transition-all">
+                    <div className="flex flex-col">
+                      <div className="flex items-center gap-3">
+                        <span className="text-xl">{step.icon}</span>
+                        <span className="font-black text-white text-sm uppercase italic tracking-tight">{step.t}</span>
+                      </div>
+                      <p className="text-[10px] text-slate-500 font-bold ml-9 uppercase tracking-tighter">{step.desc}</p>
                     </div>
-                    <p className="text-slate-400 text-base font-bold leading-relaxed opacity-60 italic">{step.desc}</p>
+                    <div className="flex flex-col items-end gap-1">
+                      <span className="text-[9px] text-white/20 font-black tracking-widest">{step.d}</span>
+                      {step.inc && <span className="text-[8px] font-black bg-amber-500 text-black px-1.5 py-0.5 rounded-full uppercase">+ INCLUIDO</span>}
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
+            
+            <p className="mt-12 text-center text-[10px] text-slate-600 font-bold uppercase tracking-[0.3em] px-4">
+              *Tiempos estimados sujetos a condiciones climáticas y logística de grupo.
+            </p>
           </div>
         </section>
 
