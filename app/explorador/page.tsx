@@ -212,33 +212,54 @@ export default function ExploradorLogin() {
         </form>
       </div>
       
-      {/* Back to home */}
-      <div className="mt-8 flex flex-col items-center gap-4">
-        <button 
-          onClick={async () => {
-            setLoading(true);
-            setError('');
-            setWarning('');
-            try {
-              const supabase = getSupabase();
-              const { data, error, status } = await supabase.from('asistentes').select('count', { count: 'exact', head: true });
-              if (error) throw error;
-              setWarning(`✅ Conexión OK. Usuarios en DB: ${data || 0}`);
-            } catch (err: any) {
-              setError(`❌ Error de Conexión: ${err.message || 'Desconocido. Revisa tus llaves o si el proyecto está pausado.'}`);
-            } finally {
-              setLoading(false);
-            }
-          }}
-          className="text-slate-400 hover:text-slate-600 text-xs transition-colors"
-        >
-          Probar Conexión con Base de Datos
-        </button>
+      {/* Back to home & Debug */}
+      <div className="mt-8 flex flex-col items-center gap-6">
+        <div className="text-center">
+            <p className="text-[10px] text-slate-400 uppercase tracking-widest font-black mb-2 opacity-50">Depuración de Sistema</p>
+            <div className="flex gap-4">
+                <button 
+                onClick={async () => {
+                    setLoading(true);
+                    setError('');
+                    setWarning('');
+                    try {
+                    const supabase = getSupabase();
+                    const { data, error } = await supabase.from('asistentes').select('count', { count: 'exact', head: true });
+                    if (error) throw error;
+                    setWarning(`✅ Conexión Exitosa. Total registros: ${data || 0}`);
+                    } catch (err: any) {
+                    setError(`❌ Error: ${err.message || 'Sin respuesta.'}`);
+                    } finally {
+                    setLoading(false);
+                    }
+                }}
+                className="bg-white/10 hover:bg-white/20 text-slate-500 px-4 py-2 rounded-xl text-[10px] font-black transition-all"
+                >
+                Test Conexión
+                </button>
+                <button 
+                onClick={() => {
+                    localStorage.removeItem('SB_URL');
+                    localStorage.removeItem('SB_KEY');
+                    localStorage.removeItem('session_whatsapp');
+                    localStorage.removeItem('session_rol');
+                    window.location.reload();
+                }}
+                className="bg-red-500/10 hover:bg-red-500/20 text-red-500 px-4 py-2 rounded-xl text-[10px] font-black transition-all"
+                >
+                Limpiar Caché
+                </button>
+            </div>
+            <p className="mt-4 text-[9px] text-slate-400 font-mono italic">
+                URL Activa: {typeof window !== 'undefined' ? (process.env.NEXT_PUBLIC_SUPABASE_URL || localStorage.getItem('SB_URL') || 'No configurada') : 'Cargando...'}
+            </p>
+        </div>
+
         <button 
           onClick={() => router.push('/')}
-          className="text-slate-500 hover:text-emerald-600 text-sm font-medium transition-colors"
+          className="text-slate-500 hover:text-emerald-600 text-sm font-black uppercase tracking-widest transition-colors"
         >
-          Volver a la página principal
+          Volver al Inicio
         </button>
       </div>
     </div>
