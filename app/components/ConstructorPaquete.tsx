@@ -97,6 +97,17 @@ export default function ConstructorPaquete({ onClose }: { onClose: () => void })
     calcularTotal();
   }, [acompanantes, opciones, finanzas, titular]);
 
+  useEffect(() => {
+    if (opciones.hospedaje === 'Cabaña' && opciones.cabana_modo === 'compartida') {
+      setOpciones(prev => ({
+        ...prev,
+        cabana_lugares_a_pagar: Math.min(prev.cabana_capacidad, 1 + acompanantes.length),
+      }));
+    }
+  }, [acompanantes]);
+
+
+
   const calcularTotal = () => {
     if (!finanzas) return;
     const totalPersonas = 1 + acompanantes.length;
@@ -494,9 +505,6 @@ export default function ConstructorPaquete({ onClose }: { onClose: () => void })
         </div>
       </div>
 
-      <button onClick={() => setStep(1)} className="w-full text-slate-400 hover:text-white text-sm flex items-center justify-center gap-2 py-2 hover:bg-white/5 rounded-xl transition-colors">
-        <Edit3 className="w-4 h-4" /> Modificar mi reserva
-      </button>
     </div>
   );
 
@@ -568,6 +576,33 @@ export default function ConstructorPaquete({ onClose }: { onClose: () => void })
         <a href="https://chat.whatsapp.com/" target="_blank" rel="noreferrer" className="w-full bg-[#25D366]/20 text-[#25D366] border border-[#25D366]/50 font-bold rounded-xl py-3 hover:bg-[#25D366]/30 transition-colors text-center text-sm">
           📲 Unirse al Grupo de WhatsApp
         </a>
+        <button 
+          onClick={() => {
+            setStep(1);
+            setIsSuccess(false);
+            onClose();
+            setTitular({ nombre: '', edad: '', whatsapp: '', ciudad: 'CDMX' });
+            setAcompanantes([]);
+            setOpciones({
+              hospedaje: 'Camping',
+              camping_equipo: 'propio',
+              cabana_modo: 'privada',
+              cabana_id: '',
+              cabana_nombre: '',
+              cabana_tipo: '',
+              cabana_capacidad: 0,
+              cabana_precio_total: 0,
+              cabana_lugares_a_pagar: 1,
+              buffet_titular: false,
+            });
+            setDesglose([]);
+            setTotalCalculado(0);
+            setPasscodeGenerated('');
+          }}
+          className="w-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 font-bold rounded-xl py-3 hover:bg-emerald-500/30 transition-colors"
+        >
+          Cerrar y Reservar Otro
+        </button>
       </div>
     </div>
   );

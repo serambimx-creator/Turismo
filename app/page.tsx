@@ -219,49 +219,45 @@ export default function LandingPage() {
         </section>
 
         {/* 4. ITINERARIO (REDISEÑO NITIDO) */}
-        <section id="itinerario" className="py-20 bg-emerald-500/[0.03] backdrop-blur-3xl border-y border-white/5 shadow-inner">
-          <div className="max-w-2xl mx-auto px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-5xl md:text-7xl font-black text-white italic tracking-tighter leading-none mb-4">TRAVESÍA <span className="text-emerald-500 underline decoration-4 underline-offset-8">48 HRS</span></h2>
-              <p className="text-emerald-400 font-black text-[10px] tracking-[0.5em] uppercase font-mono italic">Bitácora de Expedición</p>
-            </div>
-            
-            <div className="bg-white/5 backdrop-blur-3xl rounded-[48px] border border-white/10 p-6 md:p-10 shadow-2xl space-y-6">
-              {[
-                { h: '09:00', t: 'Punto de Encuentro', icon: '🚌', d: 'DÍA 1', desc: 'Salida puntual desde CDMX/Pachuca.' },
-                { h: '12:30', t: 'Bienvenida Tlalli', icon: '🍱', d: 'DÍA 1', inc: true, desc: 'Comida caliente incluida.' },
-                { h: '14:00', t: 'Cascadas Dos Mundos', icon: '💧', d: 'DÍA 1', desc: 'Exploración, tirolesas y nado.' },
-                { h: '19:30', t: 'Santuario Luciérnagas', icon: '✨', d: 'DÍA 1', desc: 'Avistamiento nocturno.' },
-                { h: '08:00', t: 'Desayuno Montañero', icon: '☕', d: 'DÍA 2', inc: true, desc: 'Café de olla y comida completa.' },
-                { h: '14:00', t: 'Buffet Tlalli', icon: '🥘', d: 'DÍA 2', desc: 'Guisos tradicionales (Regreso).' },
-              ].map((step, i) => (
-                <div key={i} className="flex gap-6 items-center group">
-                  <div className="shrink-0 flex flex-col items-center">
-                    <span className="font-mono text-[10px] font-black text-emerald-400 tracking-tighter opacity-70">{step.h}</span>
-                    <div className={`w-2.5 h-2.5 rounded-full border-2 ${step.d === 'DÍA 1' ? 'border-emerald-500' : 'border-cyan-500'} mt-1`}></div>
-                  </div>
-                  <div className="bg-white/5 border border-white/5 px-6 py-4 rounded-3xl flex-1 flex items-center justify-between group-hover:bg-white/10 transition-all">
-                    <div className="flex flex-col">
-                      <div className="flex items-center gap-3">
-                        <span className="text-xl">{step.icon}</span>
-                        <span className="font-black text-white text-sm uppercase italic tracking-tight">{step.t}</span>
-                      </div>
-                      <p className="text-[10px] text-slate-500 font-bold ml-9 uppercase tracking-tighter">{step.desc}</p>
-                    </div>
-                    <div className="flex flex-col items-end gap-1">
-                      <span className="text-[9px] text-white/20 font-black tracking-widest">{step.d}</span>
-                      {step.inc && <span className="text-[8px] font-black bg-amber-500 text-black px-1.5 py-0.5 rounded-full uppercase">+ INCLUIDO</span>}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            <p className="mt-12 text-center text-[10px] text-slate-600 font-bold uppercase tracking-[0.3em] px-4">
-              *Tiempos estimados sujetos a condiciones climáticas y logística de grupo.
-            </p>
-          </div>
-        </section>
+        <section id="itinerario" className="py-20">
+  <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12">
+    {/* Día 1 */}
+    <div className="relative rounded-3xl overflow-hidden shadow-2xl" style={{ backgroundImage: "url('/day1_background.png')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <div className="bg-black/60 backdrop-blur-md p-8 h-full flex flex-col justify-between">
+        <h3 className="text-4xl font-black text-white mb-6">Día 1 – Sábado</h3>
+        <ul className="space-y-4 text-white">
+          <li><span className="font-bold">09:00</span> Salida de CDMX (desayunados).</li>
+          <li><span className="font-bold">12:00</span> Llegada a Acaxochitlán.</li>
+          <li><span className="font-bold">12:30‑13:00</span> Traslado a zona de cascadas.</li>
+          <li><span className="font-bold">13:00‑16:00</span> Recorrido guiado por las cascadas.</li>
+          <li><span className="font-bold">16:00‑17:00</span> Tiempo libre para comida.</li>
+          <li><span className="font-bold">17:00‑18:40</span> Armado de casas de acampar o registro en cabañas.</li>
+          <li><span className="font-bold">19:00‑19:30</span> Plática introductoria sobre luciérnagas.</li>
+          <li><span className="font-bold">19:30‑21:00</span> Avistamiento de luciérnagas.</li>
+          <li><span className="font-bold">21:00‑22:30</span> Proyección de película “La Reserva”.</li>
+        </ul>
+      </div>
+    </div>
+
+    {/* Día 2 */}
+    <div className="relative rounded-3xl overflow-hidden shadow-2xl" style={{ backgroundImage: "url('/day2_background.png')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <div className="bg-black/60 backdrop-blur-md p-8 h-full flex flex-col justify-between">
+        <h3 className="text-4xl font-black text-white mb-6">Día 2 – Domingo</h3>
+        <ul className="space-y-4 text-white">
+          <li><span className="font-bold">06:00</span> Actividad opcional para ver el amanecer.</li>
+          <li><span className="font-bold">08:00</span> Desayuno.</li>
+          <li><span className="font-bold">09:00</span> Guardar pertenencias y desalojo.</li>
+          <li><span className="font-bold">09:00‑11:00</span> Observación de aves y reconocimiento natural en Manantiales.</li>
+          <li><span className="font-bold">12:00‑13:00</span> Dinámica para compartir experiencias.</li>
+          <li><span className="font-bold">14:00‑15:00</span> Comida tipo Buffet.</li>
+          <li><span className="font-bold">16:00</span> Salida hacia CDMX.</li>
+          <li><span className="font-bold">19:00</span> Llegada estimada a CDMX.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 
         {/* 5. VIDEOS / TIKTOK */}
         <section className="py-20 lg:py-32">
