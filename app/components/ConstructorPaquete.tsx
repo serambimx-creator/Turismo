@@ -82,13 +82,13 @@ export default function ConstructorPaquete({ onClose }: { onClose: () => void })
     const fetchData = async () => {
       try {
         const supabase = getSupabase();
-        
+
         // Log explicitly if using missing URL to help debugging
         const { data: fin, error: finErr } = await supabase.from('configuracion_finanzas').select('*').limit(1).single();
         const { data: cabs, error: cabErr } = await supabase.from('cabanas_inventario').select('*').eq('activa', true).order('tipo');
-        
+
         if (finErr) throw finErr;
-        
+
         if (fin) setFinanzas(fin);
         if (cabs) setCabanas(cabs as CabanaInventario[]);
         setLoadingCabanas(false);
@@ -249,10 +249,10 @@ export default function ConstructorPaquete({ onClose }: { onClose: () => void })
               lugares: lugaresAReservar,
             }
           ];
-          const { error: cabError } = await supabase.from('cabanas_inventario').update({ 
-            ocupantes: nuevosOcupantes 
+          const { error: cabError } = await supabase.from('cabanas_inventario').update({
+            ocupantes: nuevosOcupantes
           }).eq('id', opciones.cabana_id);
-          
+
           if (cabError) console.error('Error actualizando inventario de cabaña:', cabError);
         }
       } catch (err) {
@@ -617,7 +617,7 @@ export default function ConstructorPaquete({ onClose }: { onClose: () => void })
         <a href="https://chat.whatsapp.com/" target="_blank" rel="noreferrer" className="w-full bg-[#25D366]/20 text-[#25D366] border border-[#25D366]/50 font-bold rounded-xl py-3 hover:bg-[#25D366]/30 transition-colors text-center text-sm">
           📲 Unirse al Grupo de WhatsApp
         </a>
-        <button 
+        <button
           onClick={() => {
             setStep(1);
             setIsSuccess(false);

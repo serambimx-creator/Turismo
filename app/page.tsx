@@ -183,11 +183,12 @@ export default function LandingPage() {
               <span className="text-emerald-700 font-black text-[10px] tracking-[0.5em] uppercase mb-4 block">Nuestra Esencia</span>
               <h2 className="text-4xl md:text-9xl font-black text-stone-900 italic tracking-tighter leading-none uppercase">MOMENTOS <br /><span className="text-emerald-700 underline decoration-emerald-700/10">MÁGICOS</span></h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
               {[
                 { title: 'Luciérnagas', subtitle: 'VISITA EDUCATIVA', img: '/bosque-luciernagas-.jpg', icon: '✨', desc: 'Conoce su ciclo de vida en su hábitat natural y presencia los primeros destellos de la temporada.' },
-                { title: '10 Cascadas', subtitle: 'CIRCUITO COMPLETO', img: '/Galeria6.jpeg', icon: '🏞️', desc: 'Exploraremos 10 caídas de agua cristalina conectadas por senderos antiguos en el bosque de niebla.' },
-                { title: 'Adrenalina', subtitle: 'AVENTURA EXTREMA', img: '/Puente.jpeg', icon: '🧗', desc: 'Desafía tu vértigo en tirolesas de más de 100m y cruza puentes colgantes con vistas únicas.' }
+                { title: 'Las 10 Cascadas', subtitle: 'RECORRIDO GUIADO', img: '/Galeria6.jpeg', icon: '🏞️', desc: 'No es solo caminar: descubriremos toda la riqueza biológica, geológica y cultural local en este circuito de agua cristalina.' },
+                { title: 'Adrenalina', subtitle: 'AVENTURA EXTREMA', img: '/Puente.jpeg', icon: '🧗', desc: 'Desafía tu vértigo en tirolesas de más de 100m y cruza majestuosos puentes colgantes con vistas únicas.' },
+                { title: 'Cine & Sabor', subtitle: 'NOCHE EN EL BOSQUE', img: '/bufette_tlalli.jpg', icon: '🍿', desc: 'Relájate con la comida tradicional y disfruta de una mágica proyección de película bajo el cielo estrellado del bosque.' }
               ].map((ex, i) => (
                 <div key={i} className="bg-white rounded-[40px] md:rounded-[56px] border border-stone-200 overflow-hidden shadow-sm hover:shadow-2xl transition-all group flex flex-col">
                   <div className="relative h-64 md:h-80 w-full overflow-hidden shrink-0">
@@ -361,10 +362,10 @@ export default function LandingPage() {
             </div>
             <div className="space-y-8">
               {[
-                { title: 'EQUIPO CERTIFICADO', desc: 'Arneses y cuerdas con certificación internacional UIAA/CE.', icon: '🛡️' },
-                { title: 'GUÍAS PROFESIONALES', desc: 'Expertos en rescate vertical y primeros auxilios.', icon: '🎓' },
-                { title: 'SEGURO DE VIAJERO', desc: 'Cobertura médica incluida en todas las expediciones.', icon: '📝' },
-                { title: 'GRUPOS REDUCIDOS', desc: 'Atención personalizada y protocolos de higiene.', icon: '✨' }
+                { title: 'NIVEL DE SENDERO', desc: 'Ruta clasificada de nivel principiante a intermedio.', icon: '🥾' },
+                { title: 'CALZADO IDEAL', desc: 'Es indispensable llevar botas de senderismo o tenis con buen agarre.', icon: '👟' },
+                { title: 'VESTIMENTA', desc: 'Llevar ropa cómoda, de capas, con un impermeable o rompevientos.', icon: '🧥' },
+                { title: 'CLIMA DE NIEBLA', desc: 'Estamos en el bosque de niebla; prepárate para clima húmedo y cambiante.', icon: '🌧️' }
               ].map((item, i) => (
                 <div key={i} className="flex gap-5 items-start">
                   <div className="text-2xl mt-1">{item.icon}</div>
