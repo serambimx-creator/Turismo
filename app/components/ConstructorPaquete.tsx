@@ -214,12 +214,13 @@ export default function ConstructorPaquete({ onClose }: { onClose: () => void })
     const { data: asistente, error: asistError } = await supabase.from('asistentes').insert([{
       nombre_completo: titular.nombre,
       whatsapp: wp,
-      ciudad_salida: titular.ciudad,
+      ciudad_salida: titular.ciudad.startsWith('CDMX') ? 'CDMX' : 'Pachuca',
       hospedaje: opciones.hospedaje,
       passcode,
       acompanantes: acompanantes.map(a => ({ nombre: a.nombre, edad: a.edad })),
       opciones_viaje: {
         ...opciones,
+        punto_abordaje_exacto: titular.ciudad,
         buffet_titular: opciones.buffet_titular,
         acompanantes_buffet: acompanantes.filter(a => a.buffet_extra).map(a => a.nombre),
         edad_titular: titular.edad,
