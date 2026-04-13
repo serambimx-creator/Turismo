@@ -536,15 +536,12 @@ export default function ConstructorPaquete({ onClose }: { onClose: () => void })
       </div>
 
       {/* Instrucciones de pago */}
-      <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4 space-y-2">
-        <p className="text-sm font-black text-amber-400">⏰ ¡Importante! Anticipo en 24 horas</p>
-        <p className="text-xs text-slate-400">Para que sea válida tu reservación, debes realizar el pago del anticipo dentro de las próximas <strong className="text-white">24 horas</strong>.</p>
-        <div className="bg-[#0a0a0a] rounded-lg p-3 font-mono text-xs space-y-1 border border-white/5">
-          <p className="text-slate-500">CLABE: <span className="text-white">638180010119530280</span></p>
-          <p className="text-slate-500">Cuenta: <span className="text-white">01011953028</span></p>
-          <p className="text-slate-500">Beneficiario: <span className="text-white">Karla Paola Uribe Valero</span></p>
-          <p className="text-amber-400 font-bold">Concepto: <span className="text-white">{titular.nombre || 'Tu nombre'}</span></p>
-        </div>
+      <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4 space-y-3">
+        <p className="text-sm font-black text-amber-400">⚠️ Aviso Importante del Anticipo</p>
+        <p className="text-xs text-slate-400">Requerimos un <strong className="text-white">anticipo del 50% (${(totalCalculado / 2).toLocaleString('es-MX')})</strong> para apartar tu lugar definitivo. Sin embargo, no abras tu aplicación bancaria aún.</p>
+        <p className="text-xs text-emerald-400 font-bold bg-emerald-500/10 p-3 rounded-lg border border-emerald-500/20 text-center uppercase tracking-widest shadow-inner">
+          👇 Da clic en el botón de "Confirmar Reserva" para asegurar tu folio interno. Después te daremos las instrucciones bancarias.
+        </p>
       </div>
 
     </div>
@@ -585,20 +582,23 @@ export default function ConstructorPaquete({ onClose }: { onClose: () => void })
             <span className="text-slate-500">Buffet Tlalli (regreso):</span>
             <span className="text-white">{[opciones.buffet_titular ? titular.nombre : null, ...acompanantes.filter(a => a.buffet_extra).map(a => a.nombre)].filter(Boolean).join(', ') || 'No incluido'}</span>
           </div>
-          <div className="border-t border-white/10 pt-2 flex justify-between text-sm font-black">
-            <span className="text-slate-400">Total a Pagar</span>
-            <span className="text-emerald-400">${totalCalculado.toLocaleString('es-MX')}</span>
+          <div className="flex justify-between text-xs pt-3 border-t border-white/10 text-slate-400 font-bold">
+            <span>Costo Total del Paquete</span>
+            <span>${totalCalculado.toLocaleString('es-MX')}</span>
+          </div>
+          <div className="flex justify-between text-sm font-black mt-2">
+            <span className="text-white uppercase">Pago de Anticipo (50%)</span>
+            <span className="text-emerald-400 text-lg">${(totalCalculado / 2).toLocaleString('es-MX')}</span>
           </div>
         </div>
 
-        <div className="bg-[#0a0a0a] rounded-xl p-4 border border-white/5 text-center mb-4">
-          <p className="text-[10px] text-slate-500 uppercase tracking-wider font-bold mb-2">Datos para tu Depósito</p>
-          <p className="font-mono text-xs text-white mb-0.5">CLABE: 638180010119530280</p>
-          <p className="font-mono text-xs text-white mb-0.5">Cuenta: 01011953028</p>
-          <p className="text-xs text-slate-400">Karla Paola Uribe Valero</p>
-          <div className="mt-2 bg-amber-500/10 border border-amber-500/20 rounded-lg p-2">
-            <p className="text-[10px] text-amber-300">Concepto de transferencia:</p>
-            <p className="text-amber-400 font-black text-sm">{titular.nombre}</p>
+        <div className="bg-[#0a0a0a] rounded-xl p-4 border border-amber-500/20 text-center mb-4 shadow-[0_0_15px_rgba(245,158,11,0.1)]">
+          <p className="text-[10px] text-amber-500 uppercase tracking-wider font-black mb-2">Depositar Anticipo de ${(totalCalculado / 2).toLocaleString('es-MX')}</p>
+          <p className="font-mono text-sm font-bold text-white mb-0.5" onClick={() => navigator.clipboard.writeText('638180010119530280')}>CLABE: <span className="underline decoration-white/30 hover:text-cyan-400 cursor-pointer">638180010119530280</span></p>
+          <p className="font-mono text-xs text-slate-400 mb-0.5">BBVA a nombre de Karla Paola Uribe Valero</p>
+          <div className="mt-2 bg-amber-500/10 rounded-lg p-2 border border-amber-500/20">
+            <p className="text-[10px] text-amber-300 uppercase tracking-widest">En Concepto pon exactamente tu clave:</p>
+            <p className="text-amber-400 font-black text-sm tracking-widest">{passcodeGenerated}</p>
           </div>
         </div>
 
@@ -612,12 +612,12 @@ export default function ConstructorPaquete({ onClose }: { onClose: () => void })
       </div>
 
       <div className="flex flex-col gap-3 px-2">
-        <button onClick={handleDownloadTicket} className="w-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 font-bold rounded-xl py-3 hover:bg-emerald-500/30 transition-colors flex justify-center items-center gap-2">
-          <Download className="w-5 h-5" /> Descargar Comprobante
-        </button>
-        <a href="https://chat.whatsapp.com/" target="_blank" rel="noreferrer" className="w-full bg-[#25D366]/20 text-[#25D366] border border-[#25D366]/50 font-bold rounded-xl py-3 hover:bg-[#25D366]/30 transition-colors text-center text-sm">
-          📲 Unirse al Grupo de WhatsApp
+        <a href={`https://wa.me/?text=Hola%20SERAMBI.%20Acabo%20de%20reservar.%20Aqu%C3%AD%20est%C3%A1%20m%C3%AD%20comprobante%20de%20pago.%20(Clave%20${passcodeGenerated})`} target="_blank" rel="noreferrer" className="w-full bg-[#25D366] text-black font-black rounded-xl py-4 hover:bg-[#25D366]/90 transition-all text-center text-[11px] uppercase tracking-widest shadow-[0_0_15px_rgba(37,211,102,0.3)]">
+          📲 Enviar Recibo por WhatsApp
         </a>
+        <button onClick={handleDownloadTicket} className="w-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold rounded-xl py-3 hover:bg-emerald-500/20 transition-colors flex justify-center items-center gap-2 text-xs">
+          <Download className="w-4 h-4" /> Guardar Pase como Imagen
+        </button>
         <button
           onClick={() => {
             setStep(1);

@@ -271,16 +271,23 @@ export default function LandingPage() {
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-10">
               {[
-                { url: 'https://vt.tiktok.com/ZSHULJUTT/', label: 'Cascadas', icon: '🏞️' },
-                { url: 'https://vt.tiktok.com/ZSHU8K3Aw/', label: 'Vértigo', icon: '🧗🏼' },
-                { url: 'https://vt.tiktok.com/ZSHU8KaJD/', label: 'Bosque', icon: '🏕️' },
-                { url: 'https://vt.tiktok.com/ZSHU8wUcx/', label: 'Conexión', icon: '✨' },
+                { url: 'https://vt.tiktok.com/ZSHULJUTT/', label: 'Cascadas', img: '/galeria1.jpeg' },
+                { url: 'https://vt.tiktok.com/ZSHU8K3Aw/', label: 'Vértigo', img: '/Puente.jpeg' },
+                { url: 'https://vt.tiktok.com/ZSHU8KaJD/', label: 'Bosque', img: '/Hongos de acaxochitlan.jpg' },
+                { url: 'https://vt.tiktok.com/ZSHU8wUcx/', label: 'Conexión', img: '/Galeria2.jpeg' },
               ].map((v, i) => (
-                <a key={i} href={v.url} target="_blank" className="bg-white/5 border border-white/10 p-8 md:p-14 rounded-[40px] md:rounded-[64px] flex flex-col items-center justify-center gap-4 md:gap-6 hover:scale-105 hover:border-pink-500/30 hover:bg-white/10 transition-all group shadow-2xl">
-                  <div className="text-4xl md:text-5xl group-hover:scale-125 transition-transform duration-500">{v.icon}</div>
-                  <span className="font-black text-white text-[10px] uppercase tracking-[0.2em]">{v.label}</span>
-                  <div className="h-px w-8 bg-pink-500/20 group-hover:w-16 transition-all"></div>
-                  <span className="text-[10px] text-pink-500 font-black tracking-[0.3em] uppercase italic italic tracking-tighter">Explorar</span>
+                <a key={i} href={v.url} target="_blank" className="bg-white/5 border border-white/10 p-6 md:p-10 rounded-[40px] md:rounded-[64px] flex flex-col items-center justify-center gap-4 md:gap-6 hover:scale-105 hover:border-pink-500/30 hover:bg-white/10 transition-all group shadow-2xl relative overflow-hidden">
+                  <div className="absolute inset-0 z-0 opacity-20 group-hover:opacity-40 transition-opacity">
+                    <Image src={v.img} alt={v.label} fill className="object-cover" />
+                  </div>
+                  <div className="relative z-10 w-20 h-20 md:w-28 md:h-28 rounded-2xl md:rounded-3xl overflow-hidden border-2 border-white/20 group-hover:scale-110 transition-transform shadow-2xl">
+                    <Image src={v.img} alt={v.label} fill className="object-cover" />
+                  </div>
+                  <div className="relative z-10 flex flex-col items-center gap-4 mt-2">
+                    <span className="font-black text-white text-[10px] md:text-xs uppercase tracking-[0.3em]">{v.label}</span>
+                    <div className="h-px w-8 bg-pink-500/50 group-hover:w-16 transition-all"></div>
+                    <span className="text-[10px] text-pink-400 font-black tracking-[0.3em] uppercase italic">Explorar</span>
+                  </div>
                 </a>
               ))}
             </div>
