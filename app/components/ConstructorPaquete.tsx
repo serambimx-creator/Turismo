@@ -73,19 +73,29 @@ export default function ConstructorPaquete({ onClose }: { onClose: () => void })
 
   const ticketRef = useRef<HTMLDivElement>(null);
 
+  const [fetchError, setFetchError] = useState<string | null>(null);
+
   // ──────────────────────────────────
   // DATA LOADING
   // ──────────────────────────────────
   useEffect(() => {
     const fetchData = async () => {
-      const supabase = getSupabase();
-      const [{ data: fin }, { data: cabs }] = await Promise.all([
-        supabase.from('configuracion_finanzas').select('*').limit(1).single(),
-        supabase.from('cabanas_inventario').select('*').eq('activa', true).order('tipo'),
-      ]);
-      if (fin) setFinanzas(fin);
-      if (cabs) setCabanas(cabs as CabanaInventario[]);
-      setLoadingCabanas(false);
+      try {
+        const supabase = getSupabase();
+        
+        // Log explicitly if using missing URL to help debugging
+        const { data: fin, error: finErr } = await supabase.from('configuracion_finanzas').select('*').limit(1).single();
+        const { data: cabs, error: cabErr } = await supabase.from('cabanas_inventario').select('*').eq('activa', true).order('tipo');
+        
+        if (finErr) throw finErr;
+        
+        if (fin) setFinanzas(fin);
+        if (cabs) setCabanas(cabs as CabanaInventario[]);
+        setLoadingCabanas(false);
+      } catch (err: any) {
+        console.error("Error cargando datos de Supabase:", err);
+        setFetchError(err?.message || "Error al conectar con la base de datos.");
+      }
     };
     fetchData();
   }, []);
@@ -683,7 +693,16 @@ export default function ConstructorPaquete({ onClose }: { onClose: () => void })
 
         {/* Body */}
         <div className="flex-1 overflow-y-auto p-5">
-          {!finanzas ? (
+          {fetchError ? (
+            <div className="flex flex-col items-center justify-center py-12 text-center px-4">
+              <AlertCircle className="w-12 h-12 text-red-500 mb-4 drop-shadow-[0_0_10px_rgba(239,68,68,0.5)]" />
+              <p className="text-white font-bold text-lg mb-2">Error de Sistema</p>
+              <p className="text-slate-400 text-xs mb-4 max-w-[280px]">No se pudo conectar a la base de datos. Si estás en Vercel, verifica las variables de entorno.</p>
+              <p className="bg-red-500/10 border border-red-500/20 text-red-400 p-3 rounded-lg text-[10px] font-mono break-all text-center">
+                {fetchError}
+              </p>
+            </div>
+          ) : !finanzas ? (
             <div className="flex justify-center py-16"><Loader2 className="w-8 h-8 animate-spin text-emerald-400" /></div>
           ) : isSuccess ? renderSuccess() : (
             <>
