@@ -172,7 +172,10 @@ export default function AdminDashboard() {
 
   const togglePago = async (id: string, currentStatus: string) => {
     const supabase = getSupabase();
-    const newStatus = currentStatus === 'Liquidado' ? 'Pendiente' : 'Liquidado';
+    let newStatus = 'Pendiente';
+    if (currentStatus === 'Pendiente') newStatus = 'Anticipo';
+    else if (currentStatus === 'Anticipo') newStatus = 'Liquidado';
+    
     const { error } = await supabase.from('asistentes').update({ estatus_pago: newStatus }).eq('id', id);
     if (!error) {
       setAsistentes(asistentes.map(a => a.id === id ? { ...a, estatus_pago: newStatus } : a));
@@ -321,13 +324,13 @@ export default function AdminDashboard() {
               <div className="bg-[#0a0a0a] border border-white/5 p-4 rounded-xl">
                 <p className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">Ingresos Por Cobrar</p>
                 <p className="text-3xl font-black text-amber-400">
-                  ${asistentes.filter(a => !a.es_admin && a.estatus_pago === 'Pendiente').reduce((acc, curr) => acc + Number(curr.costo_total || 0), 0).toLocaleString('es-MX')}
+                  ${asistentes.filter(a => !a.es_admin && a.estatus_pago !== 'Liquidado').reduce((acc, curr) => acc + (curr.estatus_pago === 'Anticipo' ? Number(curr.costo_total || 0) / 2 : Number(curr.costo_total || 0)), 0).toLocaleString('es-MX')}
                 </p>
               </div>
               <div className="bg-[#0a0a0a] border border-white/5 p-4 rounded-xl">
-                <p className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">Pagado (Liquidado)</p>
+                <p className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">Recaudado (Anticipos + Pagos)</p>
                 <p className="text-3xl font-black text-emerald-400">
-                  ${asistentes.filter(a => !a.es_admin && a.estatus_pago === 'Liquidado').reduce((acc, curr) => acc + Number(curr.costo_total || 0), 0).toLocaleString('es-MX')}
+                  ${asistentes.filter(a => !a.es_admin && a.estatus_pago !== 'Pendiente').reduce((acc, curr) => acc + (curr.estatus_pago === 'Anticipo' ? Number(curr.costo_total || 0) / 2 : Number(curr.costo_total || 0)), 0).toLocaleString('es-MX')}
                 </p>
               </div>
             </div>
@@ -415,9 +418,13 @@ export default function AdminDashboard() {
                               <span className="text-xs text-slate-500">Pago</span>
                               <button
                                 onClick={() => togglePago(a.id, a.estatus_pago)}
-                                className={`flex items-center justify-center w-5 h-5 rounded border-2 transition-all ${a.estatus_pago === 'Liquidado' ? 'bg-cyan-500 border-cyan-500' : 'border-gray-600 hover:border-cyan-500'}`}
+                                className={`flex items-center justify-center min-w-[70px] px-2 h-6 text-[10px] uppercase font-bold rounded transition-all ${
+                                  a.estatus_pago === 'Liquidado' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' :
+                                  a.estatus_pago === 'Anticipo' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' :
+                                  'bg-slate-800 text-slate-400 border border-slate-700 hover:border-cyan-500'
+                                }`}
                               >
-                                {a.estatus_pago === 'Liquidado' && <Check className="w-2.5 h-2.5 text-black" />}
+                                {a.estatus_pago === 'Liquidado' ? 'Liquidado' : a.estatus_pago === 'Anticipo' ? 'Anticipo' : 'Pendiente'}
                               </button>
                             </div>
                           </div>
