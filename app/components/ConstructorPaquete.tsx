@@ -360,7 +360,7 @@ export default function ConstructorPaquete({ onClose }: { onClose: () => void })
         <div className="space-y-3 animate-in fade-in">
           <div className="bg-[#0a0a0a] border border-emerald-500/20 rounded-xl p-4 space-y-3">
             <p className="text-sm font-bold text-slate-300">¿Llevas tu equipo de acampar?</p>
-            {[{ val: 'propio', label: '✅ Equipo Propio', desc: '$120 por persona (carpas, sleeping, etc.)' }, { val: 'renta', label: '🏕️ Rentar Casa de Campaña', desc: '$120 + $100 extra por persona' }].map(op => (
+            {[{ val: 'propio', label: '✅ Equipo Propio', desc: `$${finanzas?.camping || 120} por persona (carpas, sleeping, etc.)` }, { val: 'renta', label: '🏕️ Rentar Casa de Campaña', desc: `$${finanzas?.camping || 120} + $${finanzas?.camping_renta_extra || 100} extra por persona` }].map(op => (
               <button key={op.val} onClick={() => setOpciones({ ...opciones, camping_equipo: op.val as any })} className={`w-full text-left p-3 rounded-xl border transition-all ${opciones.camping_equipo === op.val ? 'border-emerald-500 bg-emerald-500/10' : 'border-white/10 hover:border-white/20'}`}>
                 <div className="font-bold text-sm text-white">{op.label}</div>
                 <div className="text-xs text-slate-400">{op.desc}</div>
