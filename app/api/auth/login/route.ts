@@ -1,25 +1,24 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { getSupabase } from '@/lib/supabase';
 
 export async function POST(request: Request) {
   try {
-    const { whatsapp, passcode, supabaseUrl, supabaseKey } = await request.json();
+    const { whatsapp, passcode } = await request.json();
 
     if (!whatsapp || !passcode) {
       return NextResponse.json({ error: 'Faltan credenciales' }, { status: 400 });
     }
 
-    if (!supabaseUrl || !supabaseKey || supabaseUrl.includes('YOUR_SUPABASE_URL')) {
-      return NextResponse.json({ error: 'Falta configuración de base de datos válida' }, { status: 400 });
+    const supabase = getSupabase();
+    
+    // Verificamos si las llaves están configuradas en el servidor
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    if (!url || url.includes('missing-url')) {
+      return NextResponse.json({ 
+        error: 'El servidor no tiene configurada la base de datos (Variables de entorno faltantes en Vercel).' 
+      }, { status: 500 });
     }
 
-    let supabase;
-    try {
-      supabase = createClient(supabaseUrl, supabaseKey);
-    } catch (e: any) {
-      return NextResponse.json({ error: 'URL de base de datos no válida' }, { status: 400 });
-    }
-    
     const { data, error } = await supabase
       .from('asistentes')
       .select('*')
@@ -29,7 +28,6 @@ export async function POST(request: Request) {
 
     if (error) {
       console.error('Supabase error:', error);
-      // Errores de credenciales suelen ser 401
       return NextResponse.json({ error: 'WhatsApp o Clave incorrectos' }, { status: 401 });
     }
 

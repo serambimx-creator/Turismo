@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { MapPin, Calendar, CheckCircle, Leaf, X, Loader2, ArrowRight, Menu, Compass, Award, Utensils, Info, ShieldCheck, Camera, Users, Target } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion } from 'motion/react';
 import ConstructorPaquete from './components/ConstructorPaquete';
 
@@ -57,10 +58,10 @@ export default function LandingPage() {
 
             <div className="h-4 w-px bg-stone-200 mx-2"></div>
 
-            <a href="/explorador" className="bg-stone-100 text-stone-600 border border-stone-200 px-4 py-2 rounded-xl hover:bg-stone-200 transition-all flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
+            <Link href="/explorador" className="bg-stone-100 text-stone-600 border border-stone-200 px-4 py-2 rounded-xl hover:bg-stone-200 transition-all flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
               <Users className="w-3.5 h-3.5" />
               Portal Admin
-            </a>
+            </Link>
 
             <button
               onClick={() => setIsModalOpen(true)}
@@ -300,7 +301,7 @@ export default function LandingPage() {
                   <span className="bg-white/5 text-slate-400 px-5 md:px-6 py-2 rounded-2xl text-[9px] md:text-[10px] font-black uppercase italic tracking-widest border border-white/5">Hecho a Mano</span>
                 </div>
                 <p className="text-slate-200 font-bold text-xl md:text-2xl leading-none underline decoration-amber-500/20 underline-offset-8 decoration-2 italic mb-2 tracking-tighter leading-tight">
-                  "Un festín diseñado para compartir las historias de la jornada."
+                  &quot;Un festín diseñado para compartir las historias de la jornada.&quot;
                 </p>
               </div>
             </div>
@@ -332,10 +333,10 @@ export default function LandingPage() {
             </p>
           </div>
           <div className="flex flex-col md:flex-row gap-8 md:gap-20 text-[10px] font-black text-stone-400 uppercase tracking-widest items-center md:justify-end">
-            <a href="/explorador" className="hover:text-green-400 bg-white/5 px-10 py-5 rounded-full border border-white/5 transition-all flex items-center gap-3 group">
+            <Link href="/explorador" className="hover:text-green-400 bg-white/5 px-10 py-5 rounded-full border border-white/5 transition-all flex items-center gap-3 group">
               <Users className="w-5 h-5 group-hover:scale-110 transition-transform" />
               Acceso Staff
-            </a>
+            </Link>
           </div>
         </div>
         <div className="max-w-7xl mx-auto mt-20 pt-10 border-t border-white/5 text-center">

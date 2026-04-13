@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { getSupabase } from '@/lib/supabase';
 import { Users, Bell, Map, Check, X, Loader2, DollarSign, TrendingUp, PieChart, Trash2, Save, Settings, Truck, Home, Wrench, Compass, LogOut } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import ExportPremium from '../components/ExportPremium';
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -12,6 +13,7 @@ export default function AdminDashboard() {
   const [cabanas, setCabanas] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [newClientToast, setNewClientToast] = useState<{nombre: string} | null>(null);
+  const [showExportPremium, setShowExportPremium] = useState(false);
 
   // Avisos form state
   const [avisoMensaje, setAvisoMensaje] = useState('');
@@ -177,6 +179,19 @@ export default function AdminDashboard() {
     }
   };
 
+  const deleteAsistente = async (id: string, nombre: string) => {
+    if (confirm(`¿Estás seguro de que deseas eliminar permanentemente a ${nombre}? Esta acción no se puede deshacer.`)) {
+      const supabase = getSupabase();
+      const { error } = await supabase.from('asistentes').delete().eq('id', id);
+      if (!error) {
+        setAsistentes(asistentes.filter(a => a.id !== id));
+      } else {
+        console.error('Error eliminando asistente:', error);
+        alert('Hubo un error al eliminar al asistente.');
+      }
+    }
+  };
+
   const handleAvisoSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setAvisoSubmitting(true);
@@ -282,9 +297,17 @@ export default function AdminDashboard() {
               <h2 className="text-2xl font-bold flex items-center">
                 <Users className="mr-2 text-[#00f0ff]" /> Gestión de Asistentes
               </h2>
-              <button onClick={handleExportCSV} className="bg-white/5 border border-white/10 hover:bg-white/10 text-white text-sm px-4 py-2 rounded-lg transition-colors flex items-center">
-                Exportar CSV
-              </button>
+              <div className="flex gap-2">
+                <button 
+                  onClick={() => setShowExportPremium(true)} 
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black uppercase tracking-widest px-4 py-2 rounded-lg transition-all flex items-center gap-2 shadow-lg shadow-emerald-600/20"
+                >
+                  <TrendingUp className="w-4 h-4" /> REPORTE PREMIUM
+                </button>
+                <button onClick={handleExportCSV} className="bg-white/5 border border-white/10 hover:bg-white/10 text-white text-xs px-4 py-2 rounded-lg transition-colors flex items-center">
+                  CSV
+                </button>
+              </div>
             </div>
             
             {/* Analíticas Rápidas */}
@@ -399,20 +422,30 @@ export default function AdminDashboard() {
                             </div>
                           </div>
 
-                          {/* Botón WP */}
-                          <a
-                            href={`https://wa.me/52${a.whatsapp}?text=${encodeURIComponent(`¡Hola ${a.nombre_completo.split(' ')[0]}! 🌿 Tu depósito por $${Number(a.costo_total || 0).toLocaleString('es-MX')} ha sido confirmado. Tu lugar en Cascadas Dos Mundos (1 y 2 de Mayo) está RESERVADO.
+                          {/* Botones Derecha */}
+                          <div className="flex items-center gap-2">
+                            <button
+                                onClick={() => deleteAsistente(a.id, a.nombre_completo)}
+                                className="p-2 bg-red-500/10 text-red-500 hover:bg-red-500/20 rounded-lg transition-colors"
+                                title="Eliminar Registro"
+                            >
+                                <Trash2 className="w-4 h-4" />
+                            </button>
+                            {/* Botón WP */}
+                            <a
+                              href={`https://wa.me/52${a.whatsapp}?text=${encodeURIComponent(`¡Hola ${a.nombre_completo.split(' ')[0]}! 🌿 Tu depósito por $${Number(a.costo_total || 0).toLocaleString('es-MX')} ha sido confirmado. Tu lugar en Cascadas Dos Mundos (1 y 2 de Mayo) está RESERVADO.
 
-🔑 Tu clave de acceso a la App: *${a.passcode}*
-Entra en: ${typeof window !== 'undefined' ? window.location.origin : ''}/explorador
+  🔑 Tu clave de acceso a la App: *${a.passcode}*
+  Entra en: ${typeof window !== 'undefined' ? window.location.origin : ''}/explorador
 
-¡Nos vemos en la sierra! SERAMBI 🏔️`)}`}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="bg-[#25D366]/20 text-[#25D366] border border-[#25D366]/30 hover:bg-[#25D366]/30 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-1.5"
-                          >
-                            <span>📲</span> Notificar WP
-                          </a>
+  ¡Nos vemos en la sierra! SERAMBI 🏔️`)}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="bg-[#25D366]/20 text-[#25D366] border border-[#25D366]/30 hover:bg-[#25D366]/30 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center gap-1.5"
+                            >
+                              <span>📲</span> Notificar WP
+                            </a>
+                          </div>
                         </div>
                       </div>
                       );
@@ -1204,6 +1237,14 @@ Entra en: ${typeof window !== 'undefined' ? window.location.origin : ''}/explora
           </button>
         </div>
       </nav>
+      {/* Modal Exportación Premium */}
+      {showExportPremium && (
+        <ExportPremium 
+          asistentes={asistentes} 
+          cabanas={cabanas} 
+          onClose={() => setShowExportPremium(false)} 
+        />
+      )}
     </div>
   );
 }

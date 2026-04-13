@@ -56,9 +56,7 @@ export default function ExploradorLogin() {
         },
         body: JSON.stringify({
           whatsapp,
-          passcode,
-          supabaseUrl: url,
-          supabaseKey: key
+          passcode
         }),
         signal: controller.signal
       });

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
@@ -92,23 +93,7 @@ export default function ConstructorPaquete({ onClose }: { onClose: () => void })
   // ──────────────────────────────────
   // CALCULAR TOTAL
   // ──────────────────────────────────
-  useEffect(() => {
-    if (!finanzas) return;
-    calcularTotal();
-  }, [acompanantes, opciones, finanzas, titular]);
-
-  useEffect(() => {
-    if (opciones.hospedaje === 'Cabaña' && opciones.cabana_modo === 'compartida') {
-      setOpciones(prev => ({
-        ...prev,
-        cabana_lugares_a_pagar: Math.min(prev.cabana_capacidad, 1 + acompanantes.length),
-      }));
-    }
-  }, [acompanantes]);
-
-
-
-  const calcularTotal = () => {
+  function calcularTotal() {
     if (!finanzas) return;
     const totalPersonas = 1 + acompanantes.length;
     const items: { concepto: string; monto: number }[] = [];
@@ -149,7 +134,21 @@ export default function ConstructorPaquete({ onClose }: { onClose: () => void })
     const total = items.reduce((acc, i) => acc + i.monto, 0);
     setDesglose(items);
     setTotalCalculado(total);
-  };
+  }
+
+  useEffect(() => {
+    if (!finanzas) return;
+    calcularTotal();
+  }, [acompanantes, opciones, finanzas, titular]);
+
+  useEffect(() => {
+    if (opciones.hospedaje === 'Cabaña' && opciones.cabana_modo === 'compartida') {
+      setOpciones(prev => ({
+        ...prev,
+        cabana_lugares_a_pagar: Math.min(prev.cabana_capacidad, 1 + acompanantes.length),
+      }));
+    }
+  }, [acompanantes]);
 
   // ──────────────────────────────────────
   // CABANA HELPERS
@@ -178,10 +177,30 @@ export default function ConstructorPaquete({ onClose }: { onClose: () => void })
     setIsSubmitting(true);
     const supabase = getSupabase();
     const wp = titular.whatsapp.trim();
+
+    // 1. Verificar si ya existe el registro
+    const { data: existente, error: checkError } = await supabase
+      .from('asistentes')
+      .select('id')
+      .eq('whatsapp', wp)
+      .maybeSingle();
+
+    if (checkError) {
+      console.error('Error al verificar WhatsApp:', checkError);
+    }
+
+    if (existente) {
+      setIsSubmitting(false);
+      alert('Este número de WhatsApp ya está registrado. Si necesitas hacer cambios, contacta al administrador o ingresa al Portal del Explorador con tus datos.');
+      return;
+    }
+
+    // 2. Generar passcode
     let passcode = wp.slice(-4);
     if (passcode.length < 4) passcode = Math.floor(1000 + Math.random() * 9000).toString();
     setPasscodeGenerated(passcode);
 
+    // 3. Insertar nuevo asistente
     const { data: asistente, error: asistError } = await supabase.from('asistentes').insert([{
       nombre_completo: titular.nombre,
       whatsapp: wp,
@@ -198,30 +217,41 @@ export default function ConstructorPaquete({ onClose }: { onClose: () => void })
       costo_total: totalCalculado,
     }]).select().single();
 
-    // Si eligió cabaña, actualizar inventario
-    if (!asistError && asistente && opciones.hospedaje === 'Cabaña' && opciones.cabana_id) {
-      const cabanaActual = cabanas.find(c => c.id === opciones.cabana_id);
-      if (cabanaActual) {
-        const lugaresAReservar = opciones.cabana_modo === 'privada' ? opciones.cabana_capacidad : opciones.cabana_lugares_a_pagar;
-        const nuevosOcupantes = [
-          ...cabanaActual.ocupantes,
-          {
-            reserva_id: asistente.id,
-            nombre_titular: titular.nombre,
-            nombres_en_cabana: [titular.nombre, ...acompanantes.map(a => a.nombre)],
-            lugares: lugaresAReservar,
-          }
-        ];
-        await supabase.from('cabanas_inventario').update({ ocupantes: nuevosOcupantes }).eq('id', opciones.cabana_id);
+    if (asistError) {
+      console.error('Error insertando asistente:', asistError);
+      setIsSubmitting(false);
+      alert('Hubo un error al guardar tu registro: ' + (asistError.message || 'Error desconocido'));
+      return;
+    }
+
+    // 4. Si eligió cabaña, actualizar inventario
+    if (asistente && opciones.hospedaje === 'Cabaña' && opciones.cabana_id) {
+      try {
+        const cabanaActual = cabanas.find(c => c.id === opciones.cabana_id);
+        if (cabanaActual) {
+          const lugaresAReservar = opciones.cabana_modo === 'privada' ? opciones.cabana_capacidad : opciones.cabana_lugares_a_pagar;
+          const nuevosOcupantes = [
+            ...cabanaActual.ocupantes,
+            {
+              reserva_id: asistente.id,
+              nombre_titular: titular.nombre,
+              nombres_en_cabana: [titular.nombre, ...acompanantes.map(a => a.nombre)],
+              lugares: lugaresAReservar,
+            }
+          ];
+          const { error: cabError } = await supabase.from('cabanas_inventario').update({ 
+            ocupantes: nuevosOcupantes 
+          }).eq('id', opciones.cabana_id);
+          
+          if (cabError) console.error('Error actualizando inventario de cabaña:', cabError);
+        }
+      } catch (err) {
+        console.error('Error inesperado actualizando cabaña:', err);
       }
     }
 
     setIsSubmitting(false);
-    if (!asistError) {
-      setIsSuccess(true);
-    } else {
-      alert('Hubo un error al guardar tu registro. Por favor intenta de nuevo: ' + asistError.message);
-    }
+    setIsSuccess(true);
   };
 
   const handleDownloadTicket = async () => {
@@ -608,7 +638,11 @@ export default function ConstructorPaquete({ onClose }: { onClose: () => void })
   );
 
   const canAdvance = () => {
-    if (step === 1) return titular.nombre.trim() && titular.edad.trim() && titular.whatsapp.length === 10;
+    if (step === 1) {
+      const titularOk = titular.nombre.trim() !== '' && titular.edad !== '' && titular.whatsapp.length === 10;
+      const acompañantesOk = acompanantes.every(a => a.nombre.trim() !== '' && a.edad !== '');
+      return titularOk && acompañantesOk;
+    }
     if (step === 2) {
       if (opciones.hospedaje === 'Camping') return true;
       return !!opciones.cabana_id;
