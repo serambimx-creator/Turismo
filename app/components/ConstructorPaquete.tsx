@@ -50,7 +50,7 @@ export default function ConstructorPaquete({ onClose }: { onClose: () => void })
   const [loadingCabanas, setLoadingCabanas] = useState(true);
 
   // Form State
-  const [titular, setTitular] = useState({ nombre: '', edad: '', whatsapp: '', ciudad: 'CDMX' });
+  const [titular, setTitular] = useState({ nombre: '', edad: '', whatsapp: '', ciudad: 'CDMX - Copilco (7:30 AM)' });
   const [acompanantes, setAcompanantes] = useState<Acompanante[]>([]);
   const [opciones, setOpciones] = useState<Opciones>({
     hospedaje: 'Camping',
@@ -300,10 +300,11 @@ export default function ConstructorPaquete({ onClose }: { onClose: () => void })
           <input className={inputCls} type="number" min="1" max="99" placeholder="Ej. 32" value={titular.edad} onChange={e => setTitular({ ...titular, edad: e.target.value })} />
         </div>
         <div>
-          <label className={labelCls}>Ciudad de Salida</label>
+          <label className={labelCls}>Punto de Salida</label>
           <select className={inputCls} value={titular.ciudad} onChange={e => setTitular({ ...titular, ciudad: e.target.value })}>
-            <option value="CDMX">CDMX</option>
-            <option value="Pachuca">Pachuca</option>
+            <option value="CDMX - Copilco (7:30 AM)">CDMX - Copilco (7:30 AM)</option>
+            <option value="CDMX - 21 de Marzo (8:00 AM)">CDMX - 21 de Marzo (8:00 AM)</option>
+            <option value="Pachuca - Soriana del Valle (8:30 AM)">Pachuca - Soriana del Valle (8:30 AM)</option>
           </select>
         </div>
         <div className="col-span-2">
@@ -621,7 +622,7 @@ export default function ConstructorPaquete({ onClose }: { onClose: () => void })
             setStep(1);
             setIsSuccess(false);
             onClose();
-            setTitular({ nombre: '', edad: '', whatsapp: '', ciudad: 'CDMX' });
+            setTitular({ nombre: '', edad: '', whatsapp: '', ciudad: 'CDMX - Copilco (7:30 AM)' });
             setAcompanantes([]);
             setOpciones({
               hospedaje: 'Camping',
